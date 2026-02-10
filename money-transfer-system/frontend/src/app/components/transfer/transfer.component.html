@@ -1,7 +1,10 @@
 <h2>Transfer Money</h2>
+<button routerLink="/dashboard">Back to Dashboard</button>
+<br><br>
 
 <form (ngSubmit)="transfer()">
-  <input type="text" [(ngModel)]="toAccount" name="toAccount" placeholder="To Account" required />
+  <label>Recipient Account ID:</label>
+  <input type="number" [(ngModel)]="toAccount" name="toAccount" placeholder="e.g. 2" required />
   <br /><br />
   <input type="number" [(ngModel)]="amount" name="amount" placeholder="Amount" required />
   <br /><br />

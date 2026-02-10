@@ -25,6 +25,7 @@ public class AuthController {
     private final JwtUtil jwtUtil;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final com.example.moneytransfer.repository.AccountRepository accountRepository;
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody RegisterRequest request) {
@@ -37,6 +38,12 @@ public class AuthController {
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         
         userRepository.save(user);
+
+        // Create default account with 1000 balance
+        com.example.moneytransfer.domain.Account account = new com.example.moneytransfer.domain.Account();
+        account.setUser(user);
+        account.setBalance(new java.math.BigDecimal("1000.00"));
+        accountRepository.save(account);
 
         return ResponseEntity.ok("User registered successfully");
     }
