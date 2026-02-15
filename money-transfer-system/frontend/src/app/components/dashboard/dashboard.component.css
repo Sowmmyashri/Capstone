@@ -1,72 +1,85 @@
-/* dashboard.component.css */
+/* Dashboard Grid Layout */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
 
-/* Overall dashboard container */
-:host {
+.dashboard-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.balance-card {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%);
+  color: white;
+  grid-column: 1 / -1;
+  /* Balance card spans full width initially */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.balance-card h3 {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.balance-amount {
+  font-size: 3rem;
+  font-weight: 800;
+  color: white;
+}
+
+@media (min-width: 768px) {
+  .balance-card {
+    grid-column: span 2;
+    grid-column: 1 / -1;
+  }
+}
+
+.action-card {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
-  min-height: 100vh;
-  padding: 40px 20px;
-  background-color: #f5f7fa; /* Light background */
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #333;
+  text-align: center;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
-/* Heading style */
-h2 {
-  font-size: 2rem;
-  margin-bottom: 20px;
-  color: #1a73e8; /* Blue accent for dashboard */
+.action-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
 }
 
-/* Balance display */
-p {
-  font-size: 1.5rem;
-  margin-bottom: 30px;
-  background-color: #fff;
-  padding: 15px 25px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+.icon-wrapper {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
 }
 
-/* Buttons style */
-button {
-  background-color: #1a73e8; /* Blue button */
-  color: white;
-  border: none;
-  padding: 12px 25px;
-  margin: 10px;
-  font-size: 1rem;
-  font-weight: 600;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-decoration: none; /* For routerLink button appearance */
-  display: inline-block;
+.transfer-icon {
+  background-color: #e0e7ff;
+  color: var(--primary);
 }
 
-/* Button hover effect */
-button:hover {
-  background-color: #155ab6; /* Darker blue on hover */
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+.history-icon {
+  background-color: #dcfce7;
+  color: var(--secondary);
 }
 
-/* Responsive adjustments */
-@media (max-width: 480px) {
-  h2 {
-    font-size: 1.5rem;
-  }
+.action-card h3 {
+  margin-bottom: 0.5rem;
+}
 
-  p {
-    font-size: 1.2rem;
-    padding: 10px 20px;
-  }
-
-  button {
-    width: 100%;
-    padding: 12px 0;
-    margin: 8px 0;
-  }
+.action-card p {
+  flex-grow: 1;
 }

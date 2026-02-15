@@ -1,89 +1,67 @@
-/* history.component.css */
+/* History Component Styles */
 
-/* Overall container */
-:host {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 30px 20px;
-  min-height: 100vh;
-  background-color: #f5f7fa;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #333;
+.table-responsive {
+  overflow-x: auto;
 }
 
-/* Heading style */
-h2 {
-  font-size: 2rem;
-  margin-bottom: 25px;
-  color: #1a73e8; /* Blue accent */
-}
-
-/* Table styling */
-table {
+.history-table {
   width: 100%;
-  max-width: 800px;
   border-collapse: collapse;
-  background-color: #fff;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  border-radius: 10px;
-  overflow: hidden;
+  margin-top: 1rem;
 }
 
-/* Table headers */
-th {
-  background-color: #1a73e8;
-  color: white;
+.history-table th,
+.history-table td {
+  padding: 1rem;
   text-align: left;
-  padding: 12px 15px;
+  border-bottom: 1px solid var(--border);
+}
+
+.history-table th {
+  background-color: #f8fafc;
+  color: var(--text-muted);
   font-weight: 600;
-  font-size: 1rem;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
-/* Table rows */
-td {
-  padding: 12px 15px;
-  border-bottom: 1px solid #e0e0e0;
-  font-size: 0.95rem;
+.history-table tr:hover {
+  background-color: #f8fafc;
 }
 
-/* Alternate row colors for readability */
-tr:nth-child(even) {
-  background-color: #f9f9f9;
-}
-
-/* Hover effect for rows */
-tr:hover {
-  background-color: #e8f0fe;
-  transition: background-color 0.3s ease;
-}
-
-/* Status styling */
-td:last-child {
+/* Status Badges */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
   font-weight: 600;
   text-transform: capitalize;
 }
 
-/* Example: color coding status */
-td:last-child.pending {
-  color: #ff9800; /* Orange for pending */
+.status-badge.completed,
+.status-badge.success {
+  background-color: #dcfce7;
+  color: #166534;
 }
 
-td:last-child.completed {
-  color: #4caf50; /* Green for completed */
+.status-badge.pending {
+  background-color: #fefaca;
+  color: #854d0e;
 }
 
-td:last-child.failed {
-  color: #f44336; /* Red for failed */
+.status-badge.failed {
+  background-color: #fee2e2;
+  color: #991b1b;
 }
 
-/* Responsive adjustments */
-@media (max-width: 600px) {
-  table, th, td {
-    font-size: 0.85rem;
-  }
+.font-bold {
+  font-weight: 600;
+}
 
-  th, td {
-    padding: 10px 8px;
-  }
+.py-4 {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }

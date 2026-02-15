@@ -1,8 +1,47 @@
-<h2>Dashboard</h2>
+<div class="container mt-4">
+    <div class="dashboard-header mb-4">
+        <h2>Dashboard</h2>
+        <p class="subtitle">Welcome back! Here's your financial overview.</p>
+    </div>
 
-<p>Balance: {{ balance }}</p>
+    <div class="dashboard-grid">
+        <!-- Balance Card -->
+        <div class="card balance-card">
+            <h3>Current Balance</h3>
+            <div class="balance-amount">{{ balance | currency:'USD' }}</div>
+        </div>
 
-<button routerLink="/transfer">Transfer Money</button>
-<button routerLink="/history">Transaction History</button>
-<br><br>
-<button (click)="logout()">Logout</button>
+        <!-- Actions -->
+        <div class="card action-card">
+            <div class="icon-wrapper transfer-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="feather feather-send">
+                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                </svg>
+            </div>
+            <h3>Send Money</h3>
+            <p>Transfer funds to another account instantly.</p>
+            <button routerLink="/transfer" class="btn w-full">Transfer Now</button>
+        </div>
+
+        <div class="card action-card">
+            <div class="icon-wrapper history-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="feather feather-clock">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+            </div>
+            <h3>Transaction History</h3>
+            <p>View your past transactions and activity.</p>
+            <button routerLink="/history" class="btn btn-secondary w-full">View History</button>
+        </div>
+    </div>
+
+    <div class="mt-4 text-center">
+        <button (click)="logout()" class="btn btn-danger">Logout</button>
+    </div>
+</div>

@@ -1,19 +1,39 @@
-<h2>Transaction History</h2>
-<button routerLink="/dashboard">Back to Dashboard</button>
-<br><br>
+<div class="container mt-4">
+  <div class="card">
+    <div class="card-header mb-4 flex justify-between items-center">
+      <div>
+        <h2>Transaction History</h2>
+        <p>View your recent financial activity.</p>
+      </div>
+      <a routerLink="/dashboard" class="btn btn-secondary">Back to Dashboard</a>
+    </div>
 
-<table border="1">
-  <tr>
-    <th>From</th>
-    <th>To</th>
-    <th>Amount</th>
-    <th>Status</th>
-  </tr>
- <tr *ngFor="let tx of transactions">
-  <td>{{ tx.fromAccountId }}</td>
-  <td>{{ tx.toAccountId }}</td>
-  <td>{{ tx.amount }}</td>
-  <td>{{ tx.status }}</td>
-</tr>
-
-</table>
+    <div class="table-responsive">
+      <table class="history-table">
+        <thead>
+          <tr>
+            <th>From Account</th>
+            <th>To Account</th>
+            <th>Amount</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let tx of transactions">
+            <td>#{{ tx.fromAccountId }}</td>
+            <td>#{{ tx.toAccountId }}</td>
+            <td class="font-bold">{{ tx.amount | currency:'USD' }}</td>
+            <td>
+              <span class="status-badge" [class]="tx.status.toLowerCase()">
+                {{ tx.status }}
+              </span>
+            </td>
+          </tr>
+          <tr *ngIf="transactions.length === 0">
+            <td colspan="4" class="text-center py-4">No transactions found.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

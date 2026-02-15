@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, CurrencyPipe } from '@angular/common';
 import { ApiService } from '../../services/api.service';
 import { AuthService } from '../../services/auth.service';
 import { Router, RouterModule } from '@angular/router';
@@ -7,9 +7,9 @@ import { Router, RouterModule } from '@angular/router';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, CurrencyPipe],
   templateUrl: './dashboard.component.html',
-  styleUrl:'./dashboard.component.css'
+  styleUrl: './dashboard.component.css'
 })
 export class DashboardComponent implements OnInit {
   balance: number = 0;
