@@ -9,10 +9,11 @@
     <th>Amount</th>
     <th>Status</th>
   </tr>
-  <tr *ngFor="let tx of transactions">
-    <td>{{ tx.fromAccount }}</td>
-    <td>{{ tx.toAccount }}</td>
-    <td>{{ tx.amount }}</td>
-    <td>{{ tx.status }}</td>
-  </tr>
+ <tr *ngFor="let tx of transactions">
+  <td>{{ tx.fromAccountId }}</td>
+  <td>{{ tx.toAccountId }}</td>
+  <td>{{ tx.amount }}</td>
+  <td>{{ tx.status }}</td>
+</tr>
+
 </table>

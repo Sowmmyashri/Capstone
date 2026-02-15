@@ -8,7 +8,8 @@ import { RouterModule } from '@angular/router';
   selector: 'app-history',
   standalone: true,
   imports: [CommonModule, RouterModule],
-  templateUrl: './history.component.html'
+  templateUrl: './history.component.html',
+  styleUrl: './history.component.css'
 })
 export class HistoryComponent implements OnInit {
   transactions: any[] = [];
@@ -17,6 +18,7 @@ export class HistoryComponent implements OnInit {
 
   ngOnInit() {
     this.api.getHistory().subscribe((data: any) => {
+       console.log("HISTORY DATA:", data); 
       this.transactions = data;
     });
   }

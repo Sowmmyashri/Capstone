@@ -15,6 +15,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
@@ -31,13 +33,16 @@ public class AuthController {
     @org.springframework.transaction.annotation.Transactional
     public ResponseEntity<?> register(@RequestBody RegisterRequest request) {
         if (userRepository.existsByUsername(request.getUsername())) {
-            return ResponseEntity.badRequest().body("Username already exists");
+            // Return JSON
+            return ResponseEntity.badRequest().body(
+                    Map.of("success", false, "message", "Username already exists")
+            );
         }
 
         User user = new User();
         user.setUsername(request.getUsername());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
-        
+
         try {
             userRepository.save(user);
 
@@ -49,10 +54,15 @@ public class AuthController {
             account.setBalance(new java.math.BigDecimal("1000.00"));
             accountRepository.save(account);
 
-            return ResponseEntity.ok("User registered successfully");
+            // Return JSON success
+            return ResponseEntity.ok(
+                    Map.of("success", true, "message", "User registered successfully")
+            );
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseEntity.badRequest().body("Registration failed: " + e.getMessage());
+            return ResponseEntity.badRequest().body(
+                    Map.of("success", false, "message", "Registration failed: " + e.getMessage())
+            );
         }
     }
 

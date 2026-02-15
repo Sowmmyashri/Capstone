@@ -7,8 +7,8 @@ public class TransferResponse {
     private String transactionId;
     private String status;
     private String message;
-    private Long debitedFrom;
-    private Long creditedTo;
+    private long debitedFrom;
+    private long creditedTo;
     private BigDecimal amount;
 
     public String getTransactionId() {
