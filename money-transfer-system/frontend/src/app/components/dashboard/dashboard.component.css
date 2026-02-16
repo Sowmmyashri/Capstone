@@ -76,6 +76,11 @@
   color: var(--secondary);
 }
 
+.analytics-icon {
+  background-color: #fce7f3;
+  color: #ec4899;
+}
+
 .action-card h3 {
   margin-bottom: 0.5rem;
 }
