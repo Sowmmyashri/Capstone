@@ -26,7 +26,7 @@ export class TransferComponent {
       if (res.status === 'SUCCESS') {
         alert('Transfer successful');
       } else {
-        alert(res.message);   // ✅ show failure reason
+        alert(res.message);  
       }
     },
     error: (err) => {

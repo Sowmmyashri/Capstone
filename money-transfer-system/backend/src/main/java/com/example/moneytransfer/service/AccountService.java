@@ -3,6 +3,7 @@ package com.example.moneytransfer.service;
 import com.example.moneytransfer.domain.Account;
 import com.example.moneytransfer.domain.entity.TransactionLog;
 import com.example.moneytransfer.dto.AccountResponse;
+import com.example.moneytransfer.dto.TransactionLogResponse;
 import com.example.moneytransfer.exception.AccountNotFoundException;
 import com.example.moneytransfer.repository.AccountRepository;
 import com.example.moneytransfer.repository.TransactionLogRepository;
@@ -11,6 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class AccountService {
@@ -56,14 +59,55 @@ public class AccountService {
 
 
     @Transactional(readOnly = true)
-    public List<TransactionLog> getTransactions(Long id, String username) {
+    public List<TransactionLogResponse> getTransactions(Long id, String username) {
         Account account = accountRepository.findById(id)
                 .orElseThrow(() -> new AccountNotFoundException(id));
 
         if (!account.getUser().getUsername().equals(username)) {
             throw new RuntimeException("Unauthorized access to account");
         }
-        return transactionLogRepository.findByFromAccountIdOrToAccountId(id, id);
+        
+        List<TransactionLog> logs = transactionLogRepository.findByFromAccountIdOrToAccountId(id, id);
+        
+        // Get all account IDs from the transactions
+        List<Long> accountIds = logs.stream()
+                .flatMap(log -> List.of(log.getFromAccountId(), log.getToAccountId()).stream())
+                .distinct()
+                .toList();
+        
+        // Fetch all accounts and map by ID for quick lookup
+        Map<Long, Account> accountMap = accountRepository.findAllById(accountIds).stream()
+                .collect(Collectors.toMap(Account::getId, acc -> acc));
+        
+        // Map to response DTOs
+        return logs.stream()
+                .map(log -> toTransactionLogResponse(log, accountMap))
+                .toList();
+    }
+
+    private TransactionLogResponse toTransactionLogResponse(TransactionLog log, Map<Long, Account> accountMap) {
+        TransactionLogResponse response = new TransactionLogResponse();
+        response.setId(log.getId());
+        response.setFromAccountId(log.getFromAccountId());
+        response.setToAccountId(log.getToAccountId());
+        response.setAmount(log.getAmount());
+        response.setStatus(log.getStatus());
+        response.setFailureReason(log.getFailureReason());
+        response.setIdempotencyKey(log.getIdempotencyKey());
+        response.setCreatedOn(log.getCreatedOn());
+        
+        // Set account holder names
+        Account fromAccount = accountMap.get(log.getFromAccountId());
+        if (fromAccount != null) {
+            response.setFromAccountHolderName(fromAccount.getHolderName());
+        }
+        
+        Account toAccount = accountMap.get(log.getToAccountId());
+        if (toAccount != null) {
+            response.setToAccountHolderName(toAccount.getHolderName());
+        }
+        
+        return response;
     }
 
     private AccountResponse toResponse(Account account) {

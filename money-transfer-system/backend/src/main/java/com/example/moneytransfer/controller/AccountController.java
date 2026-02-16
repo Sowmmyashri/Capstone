@@ -1,7 +1,7 @@
 package com.example.moneytransfer.controller;
 
-import com.example.moneytransfer.domain.entity.TransactionLog;
 import com.example.moneytransfer.dto.AccountResponse;
+import com.example.moneytransfer.dto.TransactionLogResponse;
 import com.example.moneytransfer.service.AccountService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,7 +38,7 @@ public class AccountController {
     }
 
     @GetMapping("/{id}/transactions")
-    public ResponseEntity<List<TransactionLog>> getTransactions(@PathVariable Long id, java.security.Principal principal) {
+    public ResponseEntity<List<TransactionLogResponse>> getTransactions(@PathVariable Long id, java.security.Principal principal) {
         return ResponseEntity.ok(accountService.getTransactions(id, principal.getName()));
     }
 }
