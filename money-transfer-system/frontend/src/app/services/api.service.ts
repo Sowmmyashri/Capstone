@@ -10,7 +10,7 @@ export class ApiService {
   baseUrl = 'http://localhost:8080/api/v1';
   constructor(private http: HttpClient) { }
 
-  private getAccount(): Observable<any> {
+  getAccount(): Observable<any> {
     return this.http.get<any[]>(`${this.baseUrl}/accounts`).pipe(
       map(accounts => accounts && accounts.length > 0 ? accounts[0] : null)
     );
