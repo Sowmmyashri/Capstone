@@ -16,10 +16,16 @@ export class HistoryComponent implements OnInit {
 
   constructor(private api: ApiService) { }
 
-  ngOnInit() {
-    this.api.getHistory().subscribe((data: any) => {
+   ngOnInit() {
+    this.api.getHistory().subscribe((data: any[]) => {
       console.log("HISTORY DATA:", data);
-      this.transactions = data;
+ 
+     
+      this.transactions = data.sort(
+        (a, b) =>
+          new Date(b.createdOn).getTime() -
+          new Date(a.createdOn).getTime()
+      );
     });
   }
 }

@@ -17,12 +17,22 @@ export class TransferComponent {
 
   constructor(private api: ApiService) { }
 
-  transfer() {
-    this.api.transfer({
-      toAccount: this.toAccount,
-      amount: this.amount
-    }).subscribe(() => {
-      alert('Transfer successful');
-    });
-  }
+ transfer() {
+  this.api.transfer({
+    toAccount: this.toAccount,
+    amount: this.amount
+  }).subscribe({
+    next: (res: any) => {
+      if (res.status === 'SUCCESS') {
+        alert('Transfer successful');
+      } else {
+        alert(res.message);   // ✅ show failure reason
+      }
+    },
+    error: (err) => {
+      alert(err.error?.message || 'Transfer failed'); // backend error
+    }
+  });
+}
+
 }
